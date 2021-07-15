@@ -25,17 +25,11 @@ for i in 0..<100 {
 // Задание 4: Удалить из этого массива все четные числа и все числа, которые не делятся на 3.
 
 // Удаления элементов (кратных 2-м или не кратных 3-м)
-for i in 0..<array.count {
+for el in array {
     // Принудительное извлечение, так как до начала цикла все элементы array не nil
-    if (isDivided(array[i]!, by: 2) || !isDivided(array[i]!, by: 3)) {
-        array[i] = nil
+    if (isDivided(el!, by: 2) || !isDivided(el!, by: 3)) {
+        array.remove(at: array.firstIndex(of: el)!)
     }
-}
-
-// Освобождение ячеек массива
-for _ in 0..<array.count {
-    guard let index = array.firstIndex(of: nil) else { break }
-    array.remove(at: index)
 }
 
 // Задание 5: Написать функцию, которая добавляет в массив новое число Фибоначчи, и добавить при помощи нее 50 элементов.
@@ -56,3 +50,37 @@ for index in 0..<50 {
 }
 
 // Задание 6: Вычислить все простые числа в дапазоне [1,n] методом "Решето Эратосфена"
+
+var arrayPrimeNumbers = [Int?]()
+let upperLimit: Int = 1000
+
+for i in 2...upperLimit {
+    arrayPrimeNumbers.append(i)
+}
+
+func eratosthenesSieve(_ arrayAndPValues: ([Int?],Int)) -> ([Int?],Int) {
+    var arrayPrimeNumbers: [Int?] = arrayAndPValues.0
+    var p: Int = arrayAndPValues.1
+    
+    for i in stride(from: arrayPrimeNumbers.firstIndex(of: p)! + p, to: arrayPrimeNumbers.count, by: p) {
+        arrayPrimeNumbers[i] = nil
+    }
+    
+    let pOldValue: Int = p
+    
+    for i in arrayPrimeNumbers.firstIndex(of: p)!..<arrayPrimeNumbers.count {
+        if let el = arrayPrimeNumbers[i], el > p {
+            p = el
+            break
+        }
+    }
+    
+    guard pOldValue != p else {
+        return (arrayPrimeNumbers, p)
+    }
+    return eratosthenesSieve((arrayPrimeNumbers, p))
+    
+}
+
+var newArrayPrimeNumbers = eratosthenesSieve((arrayPrimeNumbers,2)).0.filter({$0 != nil})
+
