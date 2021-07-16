@@ -15,7 +15,7 @@ func isDivided(_ number: Double, by devider: Double) -> Bool {
 
 // Задание 3: Создать возрастающий массив из 100 чисел.
 
-var array = [Double?]()
+var array = [Double]()
 
 for i in 0..<100 {
     array.append(Double(i + 1))
@@ -24,10 +24,9 @@ for i in 0..<100 {
 
 // Задание 4: Удалить из этого массива все четные числа и все числа, которые не делятся на 3.
 
-// Удаления элементов (кратных 2-м или не кратных 3-м)
+// Удаления элементов кратных 2-м или не кратных 3-м
 for el in array {
-    // Принудительное извлечение, так как до начала цикла все элементы array не nil
-    if (isDivided(el!, by: 2) || !isDivided(el!, by: 3)) {
+    if isDivided(el, by: 2) || !isDivided(el, by: 3) {
         array.remove(at: array.firstIndex(of: el)!)
     }
 }
@@ -36,7 +35,7 @@ for el in array {
 
 // Функция чисел Фибоначчи получена путем разрешения разностного уравнения с начальными условиями F(0) = 0 F(1) = 1
 // Возвращаемый тип Double использован для увеличения разрядности чисел без ошибки переполнения
-func addFibonacciNumber(to array: inout [Double?], indexOfNumberInFibonacciSequence n: Int) -> Double {
+func addFibonacciNumber(to array: inout [Double], indexOfNumberInFibonacciSequence n: Int) -> Double {
     let const = 1 / sqrt(5)
     let a = exp(Double(n) * log((1 + sqrt(5)) / 2))
     let b = (n % 2 == 0 ? 1 : -1) * exp(Double(n) * log((sqrt(5) - 1) / 2))
