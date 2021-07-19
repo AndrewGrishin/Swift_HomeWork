@@ -40,18 +40,19 @@ struct Car {
         self.windowsStatus = .closed
     }
     
-    private func engineIsOFF() -> Bool {
-        if self.engineStatus == .off {
-            print("Nothing can be done with this car. Engine is OFF.")
-            return false
-        }
-        return true
-    }
-    
     mutating func actionDetector(action: CarActions) {
+        
+        func engineIsOFF() -> Bool {
+            if self.engineStatus == .off {
+                print("Nothing can be done with this car. Engine is OFF.")
+                return false
+            }
+            return true
+        }
+        
         switch action {
         case .openWindows:
-            if self.engineIsOFF() { break }
+            if engineIsOFF() { break }
             
             if self.windowsStatus == .opened {
                 print("Windows are already opened.")
@@ -61,7 +62,7 @@ struct Car {
             }
             
         case .closeWindows:
-            if self.engineIsOFF() { break }
+            if engineIsOFF() { break }
             
             if self.windowsStatus == .closed {
                 print("Windows are already closed.")
@@ -87,7 +88,7 @@ struct Car {
             }
             
         case .loadObject(let weight):
-            if self.engineIsOFF() { break }
+            if engineIsOFF() { break }
             
             if self.remainedTrunkCapacity - weight < 0 {
                 print("Impossible to load. Overweight: \(weight - self.remainedTrunkCapacity)")
@@ -97,7 +98,7 @@ struct Car {
             }
     
         case .loadOutObject(let weight):
-            if self.engineIsOFF() { break }
+            if engineIsOFF() { break }
             
             if self.remainedTrunkCapacity + weight > self.totalTrunckCapacity {
                 print("Impossible to load out. There is no such object in the trunk. Over load out: \(self.remainedTrunkCapacity + weight - self.totalTrunckCapacity)")
