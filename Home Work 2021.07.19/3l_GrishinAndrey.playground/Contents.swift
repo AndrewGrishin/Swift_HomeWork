@@ -35,6 +35,7 @@ struct Car {
     
     // опциональный инициализатор
     init? (type: CarType, mark: String, releaseYear: Int, totalTrunckCapacity: Double) {
+        // если переданные в инициализатор данные допустимы, то все в порядке
         guard releaseYear >= 0 && totalTrunckCapacity >= 0 else { return nil }
         self.type = type
         self.mark = mark
@@ -56,6 +57,8 @@ struct Car {
             return false
         }
         
+        // определение действия машины
+        // если двигатель выключен, ни одна из функций не работает
         switch action {
         case .openWindows:
             if engineIsOFF() { break }
@@ -96,6 +99,7 @@ struct Car {
         case .loadObject(let weight):
             if engineIsOFF() { break }
             
+            // Проверка на возможность перегруза
             if self.remainedTrunkCapacity - weight < 0 {
                 print("Impossible to load. Overweight: \(weight - self.remainedTrunkCapacity)")
             } else {
@@ -106,6 +110,7 @@ struct Car {
         case .loadOutObject(let weight):
             if engineIsOFF() { break }
             
+            // Проверка доступного объема выгрузки ресурсов
             if self.remainedTrunkCapacity + weight > self.totalTrunckCapacity {
                 print("Impossible to load out. There is no such object in the trunk. Over load out: \(self.remainedTrunkCapacity + weight - self.totalTrunckCapacity)")
             } else {
@@ -115,8 +120,7 @@ struct Car {
         }
     }
     
-    // Так как все параметры private => ими нельзя воспользоваться вне структуры
-    // Значит,
+    // Возвращение значений каждого из свойств конкретно
     func getCarType() -> CarType {
         return self.type
     }
