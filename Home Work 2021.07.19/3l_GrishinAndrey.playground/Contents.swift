@@ -165,7 +165,6 @@ var trunkCar = Car(type: .trunkCar, mark: "Toyota", releaseYear: 2010, totalTrun
 var luxuryCar = Car(type: .sportCar, mark: "Aston Martin", releaseYear: 2018, totalTrunckCapacity: 650)
 var wrongCar = Car(type: .sportCar, mark: "Honda", releaseYear: -2017, totalTrunckCapacity: -1000) // nil
 
-
 if var sportCar = sportCar, var trunkCar = trunkCar, var luxuryCar = luxuryCar {
     sportCar.actionDetector(action: .openWindows)
     sportCar.actionDetector(action: .launchEngine)
