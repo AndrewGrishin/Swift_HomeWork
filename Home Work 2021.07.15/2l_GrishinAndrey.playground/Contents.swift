@@ -78,7 +78,6 @@ func eratosthenesSieve(_ arrayAndPValues: ([Int?],Int)) -> ([Int?],Int) {
         return (arrayPrimeNumbers, p)
     }
     return eratosthenesSieve((arrayPrimeNumbers, p))
-    
 }
 
 var newArrayPrimeNumbers = eratosthenesSieve((arrayPrimeNumbers,2)).0.filter({$0 != nil})
