@@ -1,15 +1,15 @@
 import UIKit
 
-// Опеределяем перечисление действи автомобиля
-enum CarActions {
-    case openWindows, closeWindows
-    case launchEngine, stopEngine
-    case loadObject(Double), loadOutObject(Double)
-}
-
 // определеяем структуру автомобиля
 struct Car {
 
+    // Опеределяем перечисление действи автомобиля
+    enum CarActions {
+        case openWindows, closeWindows
+        case launchEngine, stopEngine
+        case loadObject(Double), loadOutObject(Double)
+    }
+    
     // перечисления EngineOnOff, WindowsOpenClose, CarType определены для удобства работы со структурой Car
     enum EngineOnOff {
         case on
@@ -76,7 +76,7 @@ struct Car {
             if self.windowsStatus == .closed {
                 print("Windows are already closed.")
             } else {
-                self.windowsStatus = .opened
+                self.windowsStatus = .closed
                 print("Windows were closed successfully.")
             }
             
@@ -195,5 +195,6 @@ if var sportCar = sportCar, var trunkCar = trunkCar, var luxuryCar = luxuryCar {
     luxuryCar.actionDetector(action: .loadOutObject(450))
     luxuryCar.actionDetector(action: .closeWindows)
     luxuryCar.actionDetector(action: .stopEngine)
+    luxuryCar.actionDetector(action: .launchEngine)
     luxuryCar.showCarInfo()
 }
