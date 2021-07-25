@@ -2,6 +2,10 @@ import UIKit
 
 class Car {
     
+    static func separate() {
+        print("------------------------------------------------\n\n")
+    }
+    
     enum carActions {
         case openWindows, closeWindows
         case launchEngine, stopEngine
@@ -47,7 +51,7 @@ class Car {
     func actionDetector(action: carActions) {
         func engineIsOFF() -> Bool {
             if self.engineStatus == .off {
-                print("Nothing can be done with this car. Engine is OFF.")
+                print("Nothing can be done with this car. Engine is OFF.\n")
                 return true
             }
             return false
@@ -60,36 +64,36 @@ class Car {
             if engineIsOFF() { break }
             
             if self.windowsStatus == .opened {
-                print("Windows are already opened.")
+                print("Windows are already opened.\n")
             } else {
                 self.windowsStatus = .opened
-                print("Windows were opened successfully.")
+                print("Windows were opened successfully.\n")
             }
             
         case .closeWindows:
             if engineIsOFF() { break }
             
             if self.windowsStatus == .closed {
-                print("Windows are already closed.")
+                print("Windows are already closed.\n")
             } else {
                 self.windowsStatus = .opened
-                print("Windows were closed successfully.")
+                print("Windows were closed successfully.\n")
             }
             
         case .launchEngine:
             if self.engineStatus == .on {
-                print("The engine is already turned ON.")
+                print("The engine is already turned ON.\n")
             } else {
                 self.engineStatus = .on
-                print("The engine was turned ON successfully.")
+                print("The engine was turned ON successfully.\n")
             }
             
         case .stopEngine:
             if self.engineStatus == .off {
-                print("The engine is already turned OFF.")
+                print("The engine is already turned OFF.\n")
             } else {
                 self.engineStatus = .off
-                print("The engine was turned OFF successfully.")
+                print("The engine was turned OFF successfully.\n")
             }
             
         case .loadObject(let weight):
@@ -97,10 +101,13 @@ class Car {
             
             // Проверка на возможность перегруза
             if self.remainedTrunkCapacity - weight < 0 {
-                print("Impossible to load. Overweight: \(weight - self.remainedTrunkCapacity)")
+                print("Impossible to load. Overweight: \(weight - self.remainedTrunkCapacity)\n")
             } else {
                 self.remainedTrunkCapacity -= weight
-                print("The object was successfully loaded. Weight: \(weight). Available: \(self.remainedTrunkCapacity)")
+                print("""
+                    The object was successfully loaded. Weight: \(weight).
+                    Available: \(self.remainedTrunkCapacity)\n
+                    """)
             }
     
         case .loadOutObject(let weight):
@@ -108,13 +115,19 @@ class Car {
             
             // Проверка доступного объема выгрузки ресурсов
             if self.remainedTrunkCapacity + weight > self.totalTrunckCapacity {
-                print("Impossible to load out. There is no such object in the trunk. Over load out: \(self.remainedTrunkCapacity + weight - self.totalTrunckCapacity)")
+                print("""
+                    Impossible to load out. There is no such object in the trunk.
+                    Over load out: \(self.remainedTrunkCapacity + weight - self.totalTrunckCapacity)\n
+                    """)
             } else {
                 self.remainedTrunkCapacity += weight
-                print("The object was successfully loaded out. Weight: \(weight). Available: \(self.remainedTrunkCapacity)")
+                print("""
+                    The object was successfully loaded out. Weight: \(weight).
+                    Available: \(self.remainedTrunkCapacity)\n
+                    """)
             }
         default:
-            print("Unknown operation.")
+            print("Unknown operation.\n")
         }
     }
     
@@ -160,7 +173,7 @@ class Car {
         print("Car total trunk capacity -> \(self.getCarTotalTrunkCapacity())")
         print("Car remained trunk capacity -> \(self.getCarRemainedTrunkCapacity())")
         print("Car engine status -> \(self.getEngineStatus())")
-        print("Car windows status -> \(self.getWindowsStatus())\n")
+        print("Car windows status -> \(self.getWindowsStatus())")
     }
 }
 
@@ -182,11 +195,20 @@ final class SportCar: Car {
     private var spoilerStatus: SpolierEjectedInjected
     private var headlightStatus: HeadlightsUpDown
     
-    init?(mark: String?, releaseYear: Int, totalTrunckCapacity: Double, assembleType: AssembleTypeCar) {
+    init?(
+        mark: String?,
+        releaseYear: Int,
+        totalTrunckCapacity: Double,
+        assembleType: AssembleTypeCar)
+    {
         self.assembleType = assembleType
         self.spoilerStatus = .injected
         self.headlightStatus = .decline
-        super.init(mark: mark, releaseYear: releaseYear, totalTrunckCapacity: totalTrunckCapacity)
+        super.init(
+            mark: mark,
+            releaseYear: releaseYear,
+            totalTrunckCapacity: totalTrunckCapacity
+        )
     }
     
     func getAssembleType() -> AssembleTypeCar {
@@ -219,13 +241,13 @@ final class SportCar: Car {
         
         print("Car spoiler status -> \(self.getSpoilerStatus())")
         print("Car headlight status -> \(self.getSpoilerStatus())")
-        print("Car assemble type -> \(self.getAssembleType())\n")
+        print("Car assemble type -> \(self.getAssembleType())")
     }
     
     override func actionDetector(action: Car.carActions) {
         func engineIsOFF() -> Bool {
             if self.getEngineStatus() == .off {
-                print("Nothing can be done with this car. Engine is OFF.")
+                print("Nothing can be done with this car. Engine is OFF.\n")
                 return true
             }
             return false
@@ -238,80 +260,80 @@ final class SportCar: Car {
             if engineIsOFF() { break }
             
             if self.getSpoilerStatus() == .injected {
-                print("Spoilers is already injected.")
+                print("Spoilers is already injected.\n")
                 break
             } else {
                 self.setSpoilerStatus(new: .injected)
-                print("Spoiler was injected successfully.")
+                print("Spoiler was injected successfully.\n")
             }
             
         case .ejectSpolier:
             if engineIsOFF() { break }
             
             if self.getSpoilerStatus() == .ejected {
-                print("Spoilers is already ejected.")
+                print("Spoilers is already ejected.\n")
                 break
             } else {
                 self.setSpoilerStatus(new: .ejected)
-                print("Spoiler was ejected successfully.")
+                print("Spoiler was ejected successfully.\n")
             }
             
         case .riseHeadLight:
             if engineIsOFF() { break }
             
             if self.getHeadlightStatus() == .rise {
-                print("Headlights are already up.")
+                print("Headlights are already up.\n")
                 break
             } else {
                 self.setHeadlightStatus(new: .rise)
-                print("Headlights were up successfully.")
+                print("Headlights were up successfully.\n")
             }
         
         case .declineHeadLight:
             if engineIsOFF() { break }
             
             if self.getHeadlightStatus() == .decline {
-                print("Headlights are already declined.")
+                print("Headlights are already declined.\n")
                 break
             } else {
                 self.setHeadlightStatus(new: .decline)
-                print("Headlights were declined successfully.")
+                print("Headlights were declined successfully.\n")
             }
         
         case .openWindows:
             if engineIsOFF() { break }
             
             if self.getWindowsStatus() == .opened {
-                print("Windows are already opened.")
+                print("Windows are already opened.\n")
             } else {
                 self.setWindowsStatus(new: .opened)
-                print("Windows were opened successfully.")
+                print("Windows were opened successfully.\n")
             }
             
         case .closeWindows:
             if engineIsOFF() { break }
             
             if self.getWindowsStatus() == .closed {
-                print("Windows are already closed.")
+                print("Windows are already closed.\n")
             } else {
                 self.setWindowsStatus(new: .closed)
-                print("Windows were closed successfully.")
+                print("Windows were closed successfully.\n")
             }
             
         case .launchEngine:
             if self.getEngineStatus() == .on {
-                print("The engine is already turned ON.")
+                print("The engine is already turned ON.\n")
             } else {
                 self.setEngineStatus(new: .on)
-                print("The engine was turned ON successfully.")
+                print("The engine was turned ON successfully.\n")
             }
             
         case .stopEngine:
             if self.getEngineStatus() == .off {
-                print("The engine is already turned OFF.")
+                print("The engine is already turned OFF.\n")
             } else {
                 self.setEngineStatus(new: .off)
-                print("The engine was turned OFF successfully.")
+                print("The engine was turned OFF successfully.\n")
             }
             
         case .loadObject(let weight):
@@ -319,10 +341,16 @@ final class SportCar: Car {
             
             // Проверка на возможность перегруза
             if self.getCarRemainedTrunkCapacity() - weight < 0 {
-                print("Impossible to load. Overweight: \(weight - self.getCarRemainedTrunkCapacity())")
+                print("""
+                    Impossible to load.
+                    Overweight: \(weight - self.getCarRemainedTrunkCapacity())\n
+                    """)
             } else {
                 self.setRemainedTrunkCapacity(new: self.getCarRemainedTrunkCapacity() - weight)
-                print("The object was successfully loaded. Weight: \(weight). Available: \(self.getCarRemainedTrunkCapacity())")
+                print("""
+                    The object was successfully loaded. Weight: \(weight).
+                    Available: \(self.getCarRemainedTrunkCapacity())\n
+                    """)
             }
     
         case .loadOutObject(let weight):
@@ -330,13 +358,19 @@ final class SportCar: Car {
             
             // Проверка доступного объема выгрузки ресурсов
             if self.getCarRemainedTrunkCapacity() + weight > self.getCarTotalTrunkCapacity() {
-                print("Impossible to load out. There is no such object in the trunk. Over load out: \(self.getCarRemainedTrunkCapacity() + weight - self.getCarTotalTrunkCapacity())")
+                print("""
+                    Impossible to load out. There is no such object in the trunk.
+                    Over load out: \(self.getCarRemainedTrunkCapacity() + weight - self.getCarTotalTrunkCapacity())\n
+                    """)
             } else {
                 self.setRemainedTrunkCapacity(new: self.getCarRemainedTrunkCapacity() + weight)
-                print("The object was successfully loaded out. Weight: \(weight). Available: \(self.getCarRemainedTrunkCapacity())")
+                print("""
+                    The object was successfully loaded out. Weight: \(weight).
+                    Available: \(self.getCarRemainedTrunkCapacity())\n
+                    """)
             }
         default:
-            print("Unknown operation.")
+            print("Unknown operation.\n")
         }
     }
 }
@@ -355,11 +389,20 @@ final class TrunkCar: Car {
     private var trunkStatus: TrunkUpDown
     private var backwardSignalStatus: BackwardSignalType
     
-    init?(mark: String?, releaseYear: Int, totalTrunckCapacity: Double, color: UIColor) {
+    init?(
+        mark: String?,
+        releaseYear: Int,
+        totalTrunckCapacity: Double,
+        color: UIColor
+    ) {
         self.color = color
         self.backwardSignalStatus = .off
         self.trunkStatus = .down
-        super.init(mark: mark, releaseYear: releaseYear, totalTrunckCapacity: totalTrunckCapacity)
+        super.init(
+            mark: mark,
+            releaseYear: releaseYear,
+            totalTrunckCapacity: totalTrunckCapacity
+        )
     }
     
     func getColor() -> UIColor {
@@ -392,13 +435,13 @@ final class TrunkCar: Car {
         
         print("Car color -> \(self.getColor())")
         print("Car trunk status -> \(self.getTrunkStatus())")
-        print("Car backward signal's status -> \(self.getBackwardSignalStatus())\n")
+        print("Car backward signal's status -> \(self.getBackwardSignalStatus())")
     }
     
     override func actionDetector(action: Car.carActions) {
         func engineIsOFF() -> Bool {
             if self.getEngineStatus() == .off {
-                print("Nothing can be done with this car. Engine is OFF.")
+                print("Nothing can be done with this car. Engine is OFF.\n")
                 return true
             }
             return false
@@ -412,76 +455,76 @@ final class TrunkCar: Car {
             if engineIsOFF() { break }
             
             if self.getTrunkStatus() == .up {
-                print("Trunk is already up.")
+                print("Trunk is already up.\n")
             } else {
                 self.setTrunkStatus(new: .up)
-                print("Trink status was successfully up.")
+                print("Trink status was successfully up.\n")
             }
             
         case .declineTrunk:
             if engineIsOFF() { break }
             
             if self.getTrunkStatus() == .down {
-                print("Trunk is already down.")
+                print("Trunk is already down.\n")
             } else {
                 self.setTrunkStatus(new: .down)
-                print("Trink status was successfully down.")
+                print("Trink status was successfully down.\n")
             }
             
         case .turnOnBackwardSignal:
             if engineIsOFF() { break }
             
             if self.getBackwardSignalStatus() == .on {
-                print("Backward Signal is already on.")
+                print("Backward Signal is already on.\n")
             } else {
                 self.setBackwardSignalStatus(new: .on)
-                print("Backward Signal was siccessfully on.")
+                print("Backward Signal was siccessfully on.\n")
             }
                         
         case .turnOffBackwardSignal:
             if engineIsOFF() { break }
             
             if self.getBackwardSignalStatus() == .off {
-                print("Backward Signal is already off.")
+                print("Backward Signal is already off.\n")
             } else {
                 self.setBackwardSignalStatus(new: .off)
-                print("Backward Signal was siccessfully off.")
+                print("Backward Signal was siccessfully off.\n")
             }
         
         case .openWindows:
             if engineIsOFF() { break }
             
             if self.getWindowsStatus() == .opened {
-                print("Windows are already opened.")
+                print("Windows are already opened.\n")
             } else {
                 self.setWindowsStatus(new: .opened)
-                print("Windows were opened successfully.")
+                print("Windows were opened successfully.\n")
             }
             
         case .closeWindows:
             if engineIsOFF() { break }
             
             if self.getWindowsStatus() == .closed {
-                print("Windows are already closed.")
+                print("Windows are already closed.\n")
             } else {
                 self.setWindowsStatus(new: .closed)
-                print("Windows were closed successfully.")
+                print("Windows were closed successfully.\n")
             }
             
         case .launchEngine:
             if self.getEngineStatus() == .on {
-                print("The engine is already turned ON.")
+                print("The engine is already turned ON.\n")
             } else {
                 self.setEngineStatus(new: .on)
-                print("The engine was turned ON successfully.")
+                print("The engine was turned ON successfully.\n")
             }
             
         case .stopEngine:
             if self.getEngineStatus() == .off {
-                print("The engine is already turned OFF.")
+                print("The engine is already turned OFF.\n")
             } else {
                 self.setEngineStatus(new: .off)
-                print("The engine was turned OFF successfully.")
+                print("The engine was turned OFF successfully.\n")
             }
             
         case .loadObject(let weight):
@@ -489,10 +532,16 @@ final class TrunkCar: Car {
             
             // Проверка на возможность перегруза
             if self.getCarRemainedTrunkCapacity() - weight < 0 {
-                print("Impossible to load. Overweight: \(weight - self.getCarRemainedTrunkCapacity())")
+                print("""
+                    Impossible to load.
+                    Overweight: \(weight - self.getCarRemainedTrunkCapacity())\n
+                    """)
             } else {
                 self.setRemainedTrunkCapacity(new: self.getCarRemainedTrunkCapacity() - weight)
-                print("The object was successfully loaded. Weight: \(weight). Available: \(self.getCarRemainedTrunkCapacity())")
+                print("""
+                    The object was successfully loaded. Weight: \(weight).
+                    Available: \(self.getCarRemainedTrunkCapacity())\n
+                    """)
             }
     
         case .loadOutObject(let weight):
@@ -500,14 +549,21 @@ final class TrunkCar: Car {
             
             // Проверка доступного объема выгрузки ресурсов
             if self.getCarRemainedTrunkCapacity() + weight > self.getCarTotalTrunkCapacity() {
-                print("Impossible to load out. There is no such object in the trunk. Over load out: \(self.getCarRemainedTrunkCapacity() + weight - self.getCarTotalTrunkCapacity())")
+                print("""
+                    Impossible to load out.
+                    There is no such object in the trunk.
+                    Over load out: \(self.getCarRemainedTrunkCapacity() + weight - self.getCarTotalTrunkCapacity())\n
+                    """)
             } else {
                 self.setRemainedTrunkCapacity(new: self.getCarRemainedTrunkCapacity() + weight)
-                print("The object was successfully loaded out. Weight: \(weight). Available: \(self.getCarRemainedTrunkCapacity())")
+                print("""
+                    The object was successfully loaded out. Weight: \(weight).
+                    Available: \(self.getCarRemainedTrunkCapacity())\n
+                    """)
             }
             
         default:
-            print("Unknown operation.")
+            print("Unknown operation.\n")
         }
     }
 }
@@ -530,6 +586,7 @@ sportCarOne?.actionDetector(action: .loadObject(1000))
 sportCarOne?.actionDetector(action: .loadOutObject(100))
 sportCarOne?.actionDetector(action: .stopEngine)
 sportCarOne?.showCarInfo()
+SportCar.separate()
 
 sportCarTwo?.actionDetector(action: .riseTrunk)
 sportCarTwo?.actionDetector(action: .riseHeadLight)
@@ -538,6 +595,7 @@ sportCarTwo?.actionDetector(action: .riseHeadLight)
 sportCarTwo?.actionDetector(action: .declineHeadLight)
 sportCarTwo?.actionDetector(action: .stopEngine)
 sportCarTwo?.showCarInfo()
+SportCar.separate()
 
 trunkCarOne?.actionDetector(action: .launchEngine)
 trunkCarOne?.actionDetector(action: .riseTrunk)
@@ -548,6 +606,7 @@ trunkCarOne?.actionDetector(action: .loadObject(10000))
 trunkCarOne?.actionDetector(action: .loadOutObject(10000))
 trunkCarOne?.actionDetector(action: .stopEngine)
 trunkCarOne?.showCarInfo()
+SportCar.separate()
 
 trunkCarTwo?.actionDetector(action: .riseTrunk)
 trunkCarTwo?.actionDetector(action: .launchEngine)
@@ -557,3 +616,4 @@ trunkCarTwo?.actionDetector(action: .loadOutObject(500000))
 trunkCarTwo?.actionDetector(action: .loadOutObject(1))
 trunkCarTwo?.actionDetector(action: .stopEngine)
 trunkCarTwo?.showCarInfo()
+SportCar.separate()
