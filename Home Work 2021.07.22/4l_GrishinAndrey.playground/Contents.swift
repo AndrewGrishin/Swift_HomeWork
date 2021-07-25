@@ -14,7 +14,6 @@ class Car {
         // Действия SportCar
         case ejectSpolier, injectSpolier
         case riseHeadLight, declineHeadLight
-        
         // Действия TrunkCar
         case riseTrunk, declineTrunk
         case turnOnBackwardSignal, turnOffBackwardSignal
