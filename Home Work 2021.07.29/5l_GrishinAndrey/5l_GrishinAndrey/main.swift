@@ -11,6 +11,7 @@ var astonMartin = SportCar(mark: "Aston Martin",
                         releaseYear: 2018,
                         totalTrunkCapacity: 400,
                         assembleType: .manual)
+
 var ferrari = SportCar(mark: "Ferrari",
                        releaseYear: 2017,
                        totalTrunkCapacity: 500,
@@ -19,6 +20,7 @@ var ferrari = SportCar(mark: "Ferrari",
 var gusOne = TunkCar(mark: "Gus",
                        releaseYear: 2010,
                        totalTrunkCapacity: 50_000)
+
 var gusTwo = TunkCar(mark: "Gus",
                      releaseYear: 2011,
                      totalTrunkCapacity: -1000)
