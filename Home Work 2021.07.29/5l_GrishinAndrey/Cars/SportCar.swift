@@ -38,8 +38,6 @@ class SportCar: CarProtocol {
         self.spoilerStatus = .injected
         self.headlightsStatus = .decline
     }
-    
-    
 }
 
 extension SportCar: CustomStringConvertible {

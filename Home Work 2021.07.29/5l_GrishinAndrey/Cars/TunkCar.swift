@@ -36,8 +36,6 @@ class TunkCar: CarProtocol {
         self.trunkStatus = .down
         self.backwardSignalStatus = .off
     }
-    
-    
 }
 
 extension TunkCar: CustomStringConvertible {
